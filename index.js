@@ -1,8 +1,14 @@
 const gameObj = {
     lobby: {
-        promptText: "You can insert either staircase, information desk, door to the left or door to the right",
-        options: [{optionID: "room to the left", target: [room1], description: ""}, {}, {}, {}]
+        promptText: "You find yourself in the lobby. You have the following options: staircase, information desk, door to the left or door to the right. Print your choice:",
+        options: [
+            {optionID: "door to the left", target: [this.room2]}, 
+            {optionID: "door to the right", target: [this.room1]}, 
+            {optionID: "staircase", target: [this.secondFloor]},
+            {optionID: "information desk", target: [this.informationDesk]}
+        ]
     },
+    // Anastasia
     room1: {},
     room2: {
         promtText: "You are in the room 2. You hear a noise behind the wall. What do you want to do? Your options are: explore or run back. What do you want to do?",
@@ -31,19 +37,16 @@ const gameObj = {
     secondFloor: {}
 };
 
-
-
-// staircase
-gameObj[input.toLowerCase];
-
-function startTheGame(room){
-    const choice = prompt(room.promptText); // room to the left
-    for (let option of choice.options) {
+function enterRoom(room){
+    const choice = prompt(room.promptText); // door to the left
+    for (let option of room.options) {
         if (option.optionID === choice){
-            startTheGame(gameObj[option.target]);
+            return enterRoom(gameObj[option.target]);
         }   
     }
+    alert("Option not found. Please, check your spelling");
+    return enterRoom(room);
 }
 
-alert("The game begins");
-startTheGame(gameObj[0]);
+alert("Your best friend has gone missing exploring an abandoned asylum. You came here determined to get answers. And now the game begins.");
+enterRoom(gameObj.lobby);
