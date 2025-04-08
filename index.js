@@ -76,3 +76,5 @@ alert("Your best friend has gone missing exploring an abandoned asylum. You came
 enterRoom(gameObj.lobby);
 
 // instead of writing "door to the left" let the user pick a letter a) door to the left
+// implement the logic for the key from the elevator
+// add emojiis
