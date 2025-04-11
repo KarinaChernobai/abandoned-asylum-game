@@ -1,3 +1,4 @@
+
 // Game object with all rooms
 const gameObj = {
   lobby: {
@@ -72,8 +73,8 @@ const gameObj = {
     promptText:
       "🚪 You are in secret room 2. A monster blocks the way 😈. An ax lies on the ground 🪓. Options:\n 1) Get the ax and fight or \n 2) 🏃 Run away.",
     options: [
-      { optionID: "Get the ax and fight", target: "winroom" },
-      { optionID: "run away", target: "lobby" },
+      { optionID: "1", target: "winroom" },
+      { optionID: "2", target: "lobby" },
     ],
   },
   winroom: {
@@ -251,3 +252,4 @@ enterRoom(gameObj.lobby);
 // instead of writing "door to the left" let the user pick a letter a) door to the left
 // implement the logic for the key from the elevator
 // add emojiis
+
