@@ -247,10 +247,53 @@ function enterRoom(room) {
 }
 
 function combat () {
-if(true){
+  alert("You chose to fight - very brave...");
+  let monster = new entity(50);
 
+  let damage;
+  let maxDamage;
+  let playerTurn = true;
+
+while(monster.health > 0){
+
+if(playerTurn == true){
+  let choice = prompt("Do you want to: \n(1)Strike max 5 Damage \n(2)Kick max 7 Damage \n(3)Stab max 15 Damage"); //plan to create cooldowns for items or one-use items
+  switch (choice){
+    case "1":
+    maxDamage = 7;
+    break;
+    case "2":
+    maxDamage = 13;
+    break;
+    case "3":
+      maxDamage = 18;
+    break;
+  }
+  damage = Math.floor(Math.random() * (maxDamage));
+  monster.health = monster.health - damage;
+  if(monster.health > 0){
+  alert("You dealt " + damage + " points damage. The monster has " + monster.health + "health left");
+  playerTurn = false;
 }
-  combat()
+  else{
+    alert("You have defeated the monster!")
+    enterRoom(gameObj.winroom);
+  }
+}
+
+else{
+  damage = Math.floor(Math.random() * (25));//make relatve to monster stregth property
+  player.health = player.health - damage;
+  if(player.health > 0){
+  alert("The monster fought back and dealt " + damage + " points damage. You have " +player.health+ " health left");
+  playerTurn = true;
+}
+else{
+  alert("What where you thinking fighting a monster...? Now you're no longer thinking...");
+  enterRoom(gameObj.lobby);
+}
+}
+}
 }
 
 
