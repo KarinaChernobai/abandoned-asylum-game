@@ -74,13 +74,13 @@ function askYesNo(question) {
   // Game object with all rooms
 const gameObj = {
     lobby: {
-        promptText: "You find yourself in the lobby. You have the following options: staircase, information desk, elevator, door to the left or door to the right. Print your choice:",
+        promptText: "You find yourself in the lobby. You have the following options: \n 1-staircase,\n 2-information desk,\n 3-elevator,\n 4-door to the left or \n 5-door to the right. \n Print your choice:",
         options: [
-            {optionID: "door to the left", target: "room2"}, 
-            {optionID: "door to the right", target: "room1"}, 
-            {optionID: "staircase", target: "secondFloor"},
-            {optionID: "information desk", target: "informationDesk"},
-            {optionID: "elevator", target: "elevator"}
+            {optionID: "4", target: "room2"}, 
+            {optionID: "5", target: "room1"}, 
+            {optionID: "1", target: "secondFloor"},
+            {optionID: "2", target: "informationDesk"},
+            {optionID: "3", target: "elevator"}
         ]
     },
     // Anastasia
@@ -92,35 +92,35 @@ const gameObj = {
         },
       },
     room2: {
-        promptText: "You are in the room 2. You hear a noise behind the wall. What do you want to do? Your options are: explore or run back. What do you want to do?",
-        options: [{optionID:"Explore", target: "bookCase"}, {optionID:"Run back", target: "lobby" }]
+        promptText: "You are in the room 2. You hear a noise behind the wall. What do you want to do? Your options are:\n 1-explore or \n 2-run back. \n What do you want to do?",
+        options: [{optionID:"1", target: "bookCase"}, {optionID:"2", target: "lobby" }]
     },
     bookCase: {
-        promptText: "You found a door to a secred room below the bookcase. There are still strange noises. Do you want to open door? Your options are: check the bookcase or go back. What do you want to do?",
-        options: [{optionID:"Check the bookcase", target: "secretRoom1"}, {optionID:"Go back", target: "lobby" }]
+        promptText: "You found a door to a secred room below the bookcase. There are still strange noises. Do you want to open door? Your options are:\n 1-check the bookcase or \n 2-go back. \n What do you want to do?",
+        options: [{optionID:"1", target: "secretRoom1"}, {optionID:"2", target: "lobby" }]
     },
     room3: {
-        promptText: "You are in the patient's ward. You have the following options: go back",
-        options: [{optionID: "go back", target: "lobby"}]
+        promptText: "You are in the patient's ward. You have the following option:\n 1-go back",
+        options: [{optionID: "1", target: "lobby"}]
     },
     room4: {
-        promptText: "You are in the lobotomy room. Everything is bloody and you see a shadow emerging from the corner. You have only one option: run away",
-        options: [{optionID: "run away", target: "loseroom"}]
+        promptText: "You are in the lobotomy room. Everything is bloody and you see a shadow emerging from the corner. You have only one option:\n 1-run away",
+        options: [{optionID: "1", target: "loseroom"}]
     },
     elevator: {
-        promptText: "You are in the elevator. You have the following options: go back, go upstairs, go downstairs",
-        options: [{optionID: "go back", target: "lobby"}, {optionID: "go upstairs", target: "secondFloor"}, {optionID: "go downstairs", target: "cellar"}]
+        promptText: "You are in the elevator. You have the following options:\n 1-go back, \n 2-go upstairs, \n 3-go downstairs.\n What do you want to do?",
+        options: [{optionID: "1", target: "lobby"}, {optionID: "2", target: "secondFloor"}, {optionID: "3", target: "cellar"}]
     },
     cellar: {
-        promptText: "You are in the cellar. You have the following options: go back",
-        options: [{optionID: "go back", target: "lobby"}]
+        promptText: "You are in the cellar. You have the following option:\n 1-go back",
+        options: [{optionID: "1", target: "lobby"}]
     },
-    secretRoom1: { promptText: "You are in the secret room now. There is a chained ghost in the corner. It asks for help. Do you want to help it? your options are: help the ghost or run away. What do you want to do?",
-        options: [{optionID:"Help the ghost", item: "key", message:"Ghost gave you a key. This is a key to another secred room where you will find you loved one.", target:"secretRoom2"}, {optionID:"Run away", target: "lobby" }] 
+    secretRoom1: { promptText: "You are in the secret room now. There is a chained ghost in the corner. It asks for help. Do you want to help it? your options are:\n 1-help the ghost or \n 2-run away. \n What do you want to do?",
+        options: [{optionID:"1", item: "key", message:"Ghost gave you a key. This is a key to another secred room where you will find you loved one.", target:"secretRoom2"}, {optionID:"2", target: "lobby" }] 
 
     },
     secretRoom2: {
-        promptText: "You are in the secret room 2. You see a big monster and an ax on the ground. Your options are: get the ax and fight or run away. What do you want to do?",
+        promptText: "You are in the secret room 2. You see a big monster and an ax on the ground. Your options are:\n 1- Get the ax and fight or \n 2- Run away. \n What do you want to do?",
         options: [{optionID:"Get the ax and fight", target:"winroom"}, {optionID:"run away", target: "lobby" }]
     },
     winroom: {
@@ -131,8 +131,8 @@ const gameObj = {
     },
     informationDesk: {},
     secondFloor: {
-        promptText: "You are at the second floor. Your options are: lobotomy room, patient's ward or go downstairs",
-        options: [{optionID: "lobotomy room", target: "room4"}, {optionID: "patient's ward", target: "room3"}, {optionID: "go downstairs", target: "lobby"}]
+        promptText: "You are at the second floor. Your options are:\n  1-lobotomy room, \n 2-patient's ward or \n 3-go downstairs. \n What do you want to do?",
+        options: [{optionID: "1", target: "room4"}, {optionID: "2", target: "room3"}, {optionID: "3", target: "lobby"}]
     }
 };
 
