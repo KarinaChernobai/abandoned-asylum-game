@@ -27,15 +27,18 @@ const gameObj = {
     options: [{ optionID: "1", target: "secretRoom1" }, { optionID: "2", target: "lobby" }]
   },
   room3: {
-    promptText: "You are in the patient's ward. You have the following option:\n 1-go back",
-    options: [{ optionID: "1", target: "lobby" }]
+    promptText: "You are in the patient's ward. You have the following options:\n 1-go back to second floor \n 2-to  the elevator." ,
+    options: [{optionID: "1", target: "secondFloor"}, {optionID: "2", target: "elevator"}]
   },
   room4: {
     promptText: "You are in the lobotomy room. Everything is bloody and you see a shadow emerging from the corner. You have only one option:\n 1-run away",
     options: [{ optionID: "1", target: "loseroom" }]
   },
+        elevator: {
+        options: [{optionID: "1", target: "lobby"}, {optionID: "2", target: "secondFloor"}, {optionID: "3", target: "cellar"}]
+    },
   elevator: {
-    promptText: "You are in the elevator. You have the following options:\n 1-go back, \n 2-go upstairs, \n 3-go downstairs.\n What do you want to do?",
+    promptText: "You are in the elevator. You have the following options:\n 1-the lobby, \n 2-go upstairs, \n 3-go downstairs to cellar.\n What do you want to do?",
     isBlocked: true,
     gameText: "You need a key.",
     options: [{ optionID: "1", target: "lobby" }, { optionID: "2", target: "secondFloor" }, { optionID: "3", target: "cellar" }]
@@ -209,9 +212,16 @@ function enterRoom(room) {
   return;
 }
 
-alert(
-  "Your best friend has gone missing exploring an abandoned asylum. You came here determined to get answers. And now the game begins."
-);
+alert ("Your best friend has gone missing exploring an abandoned asylum.\n You came here determined to get answers.");
+alert ("You have heard that there are strange noises, screams and there might possibly be dangerous creatures in this building.");
+alert ("Watch out before each of you steps!");
+alert ("Death has never been so close!");
+alert ("Are you ready?");
+alert ("The game will start in '3'!\n (Are you sure you still want to go in?)")
+alert ("The game will start in '2'!\n (You can still go home!)")
+alert ("The game will start in '1'!\n (Don't forget that there will be no way back!)")
+alert ("Game starts! \n (Don't worry, we will always remember your courage!)")
+
 enterRoom(gameObj.lobby);
 
 // instead of writing "door to the left" let the user pick a letter a) door to the left
