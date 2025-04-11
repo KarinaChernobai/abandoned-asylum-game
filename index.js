@@ -76,10 +76,20 @@ const gameObj = {
     promptText:
       "🚪 You are in secret room 2. A monster blocks the way 😈. An ax lies on the ground 🪓. Options:\n 1) Get the ax and fight or \n 2) 🏃 Run away.",
     options: [
-      { optionID: "1", target: "winroom" },
+      { optionID: "1", target: "combat" },
       { optionID: "2", target: "lobby" },
     ],
   },
+
+  combat: {
+    promptText:
+    "You chose to fight! You can either",
+    options: [
+      { optionID: "1", target: "winroom" },
+      { optionID: "2", target: "lobby" },
+    ]
+  },
+
   winroom: {
     gameText:
       "🎉 You won the game! You saved your loved one 💖. You are happy 😊.",
