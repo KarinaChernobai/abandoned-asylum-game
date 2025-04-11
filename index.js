@@ -90,7 +90,7 @@ const gameObj = {
           doctorRoom(); //
           enterRoom(gameObj.lobby); //
         },
-      },
+    },
     room2: {
         promptText: "You are in the room 2. You hear a noise behind the wall. What do you want to do? Your options are: explore or run back. What do you want to do?",
         options: [{optionID:"Explore", target: "bookCase"}, {optionID:"Run back", target: "lobby" }]
@@ -158,3 +158,4 @@ enterRoom(gameObj.lobby);
 // instead of writing "door to the left" let the user pick a letter a) door to the left
 // implement the logic for the key from the elevator
 // add emojiis
+// door to the right does not work
