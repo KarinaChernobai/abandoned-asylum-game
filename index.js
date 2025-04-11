@@ -1,4 +1,7 @@
 
+const player = {
+  health: 100
+}
 // Game object with all rooms
 const gameObj = {
   lobby: {
