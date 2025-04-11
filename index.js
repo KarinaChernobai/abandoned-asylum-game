@@ -1,76 +1,4 @@
-function askYesNo(question) {
-    let answer = prompt(question + " (Yes/No)").toLowerCase();
-    return answer === "yes" || answer === "y";
-  }
-  
-  function doctorRoom() {
-    if (
-      !askYesNo("The sign says 'Doctor's Office'. Do you want to enter the room?")
-    ) {
-      alert("You decide to stay in the lobby.");
-      return;
-    }
-  
-    if (!askYesNo("You approach the door. Do you want to slightly open it?")) {
-      alert("You change your mind and return to the lobby.");
-      return;
-    }
-  
-    alert(
-      "You slightly open the door and see old medical equipment, books, certificates on the walls, and bare, cold walls."
-    );
-  
-    if (!askYesNo("Do you want to go further into the room?")) {
-      alert("You step back and return to the lobby.");
-      return;
-    }
-  
-    alert("You smell strong alcohol in the air.");
-    alert("The room is dim. The large windows are tightly shut.");
-    alert("You fully open the door and walk inside...");
-  
-    if (askYesNo("You walk toward the desk. Look under the desk?")) {
-      alert("You look under the desk — there's nothing there.");
-    } else {
-      alert("You decide not to look under the desk.");
-    }
-  
-    if (!askYesNo("Approach the cabinet?")) {
-      if (askYesNo("You found nothing. Do you want to return to the lobby?")) {
-        alert("You return to the lobby.");
-        return;
-      } else {
-        alert("You hesitate, but eventually decide to approach the cabinet.");
-      }
-    }
-  
-    if (askYesNo("Do you want to open the cabinet?")) {
-      alert("Suddenly, a stranger jumps out from the cabinet!");
-  
-      while (true) {
-        let action = prompt("Do you want to STAY or RUN?").toUpperCase();
-  
-        if (action === "RUN") {
-          alert("You quickly turn around and run back to the lobby!");
-          return;
-        } else if (action === "STAY") {
-          alert("You choose to stay...");
-          alert("The stranger just stands there silently, staring at you.");
-          alert("You feel the tension rise. There seems to be no way out...");
-        } else {
-          alert("Please type STAY or RUN.");
-        }
-      }
-    } else {
-      alert("You decide not to open the cabinet.");
-      if (askYesNo("Return to the lobby?")) {
-        alert("You return to the lobby.");
-      } else {
-        alert("You choose to stay... but the silence becomes unbearable.");
-        doctorRoom(); // Restart the room loop
-      }
-    }
-  }
+
   // Game object with all rooms
 const gameObj = {
     lobby: {
@@ -136,23 +64,136 @@ const gameObj = {
     }
 };
 
-function enterRoom(room){
-    if (room.promptText){
-        const choice = prompt(room.promptText); // door to the left
-        for (let option of room.options) {
-            if (option.optionID.toLowerCase() === choice.toLowerCase()){
-                if (option.message) alert(option.message);
-                return enterRoom(gameObj[option.target]);
-            }   
-        }
-        alert("Option not found. Please, check your spelling");
-        return enterRoom(room);
+function askYesNoSmart(question) {
+  while (true) {
+    let answer = prompt(question + " (Yes/No)")
+      .trim()
+      .toLowerCase();
+
+    if (answer === "yes" || answer === "y") {
+      return true;
+    } else if (answer === "no" || answer === "n") {
+      const goLobby = confirm(
+        "There's nothing else to do. Do you want to return to the lobby?"
+      );
+      if (goLobby) return "lobby";
+      else continue; // a question
+    } else {
+      alert("Please answer with Yes or No.");
     }
-    alert(room.gameText); // exits the game
+  }
+}
+function doctorRoom() {
+  let result = askYesNoSmart(
+    "The sign says 'Doctor's Office'. Do you want to enter the room?"
+  );
+  if (result === "lobby") {
+    alert("You return to the lobby.");
     return;
+  }
+
+  result = askYesNoSmart(
+    "You approach the door. Do you want to slightly open it?"
+  );
+  if (result === "lobby") {
+    alert("You change your mind and return to the lobby.");
+    return;
+  }
+
+  alert(
+    "You slightly open the door and see old medical equipment, books, certificates on the walls, and bare, cold walls."
+  );
+
+  result = askYesNoSmart("Do you want to go further into the room?");
+  if (result === "lobby") {
+    alert("You step back and return to the lobby.");
+    return;
+  }
+
+  alert("You smell strong alcohol in the air.");
+  alert("The room is dim. The large windows are tightly shut.");
+  alert("You fully open the door and walk inside...");
+
+  result = askYesNoSmart("You walk toward the desk. Look under the desk?");
+  if (result === "lobby") {
+    alert("You return to the lobby.");
+    return;
+  }
+  if (result) {
+    alert("You look under the desk — there's nothing there.");
+  } else {
+    alert("You decide not to look under the desk.");
+  }
+
+  result = askYesNoSmart("Approach the cabinet?");
+  if (result === "lobby") {
+    alert("You return to the lobby.");
+    return;
+  }
+
+  result = askYesNoSmart("Do you want to open the cabinet?");
+  if (result === "lobby") {
+    alert("You return to the lobby.");
+    return;
+  }
+
+  if (result) {
+    alert("Suddenly, a stranger jumps out from the cabinet!");
+
+    while (true) {
+      let action = prompt("Do you want to STAY or RUN?");
+      if (!action) continue;
+
+      action = action.trim().toUpperCase();
+
+      if (action === "RUN") {
+        alert("You quickly turn around and run back to the lobby!");
+        return;
+      } else if (action === "STAY") {
+        alert("You choose to stay...");
+        alert("The stranger just stands there silently, staring at you.");
+        alert("You feel the tension rise. There seems to be no way out...");
+      } else {
+        alert("Please type STAY or RUN.");
+      }
+    }
+  } else {
+    alert("You decide not to open the cabinet.");
+
+    result = askYesNoSmart("Return to the lobby?");
+    if (result === "lobby" || result === true) {
+      alert("You return to the lobby.");
+    } else {
+      alert("You choose to stay... but the silence becomes unbearable.");
+      doctorRoom(); // again
+    }
+  }
 }
 
-alert("Your best friend has gone missing exploring an abandoned asylum. You came here determined to get answers. And now the game begins.");
+function enterRoom(room) {
+  // Check if this is  doctorRoom
+  if (room.isCustomRoom && typeof room.enter === "function") {
+    return room.enter();
+  }
+
+  if (room.promptText) {
+    const choice = prompt(room.promptText);
+    for (let option of room.options || []) {
+      if (option.optionID.toLowerCase() === choice.toLowerCase()) {
+        if (option.message) alert(option.message);
+        return enterRoom(gameObj[option.target]);
+      }
+    }
+    alert("Option not found. Please, check your spelling");
+    return enterRoom(room);
+  }
+  alert(room.gameText); // exits the game
+  return;
+}
+
+alert(
+  "Your best friend has gone missing exploring an abandoned asylum. You came here determined to get answers. And now the game begins."
+);
 enterRoom(gameObj.lobby);
 
 // instead of writing "door to the left" let the user pick a letter a) door to the left
