@@ -1,7 +1,8 @@
-
-const player = {
-  health: 100
-}
+class entity {
+  constructor(health){
+  this.health = health
+}};
+player = new entity (100);
 // Game object with all rooms
 const gameObj = {
   lobby: {
@@ -82,13 +83,11 @@ const gameObj = {
   },
 
   combat: {
-    promptText:
-    "You chose to fight! You can either",
-    options: [
-      { optionID: "1", target: "winroom" },
-      { optionID: "2", target: "lobby" },
-    ]
-  },
+    isCustomRoom: true,
+    enter: function () {
+      combat();
+      enterRoom(gameObj.lobby);
+  }},
 
   winroom: {
     gameText:
@@ -245,6 +244,13 @@ function enterRoom(room) {
   }
   alert(room.gameText); // exits the game
   return;
+}
+
+function combat () {
+if(true){
+
+}
+  combat()
 }
 
 
