@@ -2,13 +2,13 @@
 const gameObj = {
   lobby: {
     promptText:
-      "🏚️ You find yourself in the lobby. You have the following options: \n a) 🧱 staircase,\n b) 🛎️ information desk,\n c) 🛗 elevator,\n d) 🚪 door to the left or \n e) 🚪 door to the right. \n Print your choice:",
+      "🏚️ You find yourself in the lobby. You have the following options: \n 1) 🧱 staircase,\n 2) 🛎️ information desk,\n 3) 🛗 elevator,\n 4) 🚪 door to the left or \n 5) 🚪 door to the right. \n Print your choice:",
     options: [
-      { optionID: "d", target: "room2" },
-      { optionID: "e", target: "room1" },
-      { optionID: "a", target: "secondFloor" },
-      { optionID: "b", target: "informationDesk" },
-      { optionID: "c", target: "elevator" },
+      { optionID: "4", target: "room2" },
+      { optionID: "5", target: "room1" },
+      { optionID: "1", target: "secondFloor" },
+      { optionID: "2", target: "informationDesk" },
+      { optionID: "3", target: "elevator" },
     ],
   },
   room1: {
@@ -35,8 +35,8 @@ const gameObj = {
     ],
   },
   room3: {
-    promptText: "🛏️ You are in the patient's ward. Option:\n 1) 🔙 go back",
-    options: [{ optionID: "1", target: "lobby" }],
+    promptText: "🛏️ You are in the patient's ward. Option:\n 1) 🔙 go back \n 2-to  the elevator.",
+    options: [{optionID: "1", target: "secondFloor"}, {optionID: "2", target: "elevator"}]
   },
   room4: {
     promptText:
@@ -44,18 +44,15 @@ const gameObj = {
     options: [{ optionID: "1", target: "loseroom" }],
   },
   elevator: {
-    promptText:
-      "🛗 You are in the elevator. Options:\n 1) 🔙 go back,\n 2) ⬆️ go upstairs,\n 3) ⬇️ go downstairs.\n What do you want to do?",
-    options: [
-      { optionID: "1", target: "lobby" },
-      { optionID: "2", target: "secondFloor" },
-      { optionID: "3", target: "cellar" },
-    ],
+    promptText: "🛗 You are in the elevator. Options:\n 1) 🔙 go back,\n 2) ⬆️ go upstairs,\n 3) ⬇️ go downstairs.\n What do you want to do?",
+    isBlocked: true,
+    gameText: "You need a key.",
+    options: [{ optionID: "1", target: "lobby" }, { optionID: "2", target: "secondFloor" }, { optionID: "3", target: "cellar" }]
   },
   cellar: {
     promptText:
       "🍷 You are in the cellar. It smells musty. Option:\n 1) 🔙 go back",
-    options: [{ optionID: "1", target: "lobby" }],
+    options: [{ optionID: "1", target: "elevator" }],
   },
   secretRoom1: {
     promptText:
@@ -87,7 +84,10 @@ const gameObj = {
     gameText:
       "💀 You are too slow. The demon is right behind you... 🩸 Darkness takes over...",
   },
-  informationDesk: {},
+  informationDesk: {
+    promptText: "On the desk you see a key. Your options are:\n  1-pick key or \n 2-go back. \n What do you want to do?",
+    options: [{ optionID: "1", target: "action" }, { optionID: "2", target: "lobby" }]
+  },
   secondFloor: {
     promptText:
       "🏢 You are at the second floor. Options:\n 1) 🧠 lobotomy room,\n 2) 🛏️ patient’s ward or \n 3) 🔽 go downstairs.",
@@ -97,6 +97,13 @@ const gameObj = {
       { optionID: "3", target: "lobby" },
     ],
   },
+  action:{
+      isCustomRoom: true,
+      enter: ()=> {
+        gameObj.elevator.isBlocked = false;
+        enterRoom(gameObj.lobby);
+      },
+   }
 };
 
 function askYesNoSmart(question) {
@@ -200,11 +207,18 @@ function doctorRoom() {
 }
 
 function enterRoom(room) {
+  // Check if this is  doctorRoom
   if (room.isCustomRoom && typeof room.enter === "function") {
     return room.enter();
   }
 
   if (room.promptText) {
+    console.dir(room);
+    if(room.isBlocked){
+      alert(room.gameText);
+      console.log(room.options[0]);
+      return enterRoom(gameObj.lobby);
+    }
     const choice = prompt(room.promptText);
     for (let option of room.options || []) {
       if (option.optionID.toLowerCase() === choice.toLowerCase()) {
@@ -215,11 +229,25 @@ function enterRoom(room) {
     alert("🚫 Option not found. Please, check your input.");
     return enterRoom(room);
   }
-  alert(room.gameText);
+  alert(room.gameText); // exits the game
   return;
 }
+
 
 alert(
   "🎮 Your best friend has gone missing exploring an abandoned asylum. You came here to find them. And now... the game begins. 🕵️‍♂️"
 );
+alert ("You have heard that there are strange noises, screams and there might possibly be dangerous creatures in this building.");
+alert ("Watch out before each of you steps!");
+alert ("Death has never been so close!");
+alert ("Are you ready?");
+alert ("The game will start in '3'!\n (Are you sure you still want to go in?)")
+alert ("The game will start in '2'!\n (You can still go home!)")
+alert ("The game will start in '1'!\n (Don't forget that there will be no way back!)")
+alert ("Game starts! \n (Don't worry, we will always remember your courage!)")
+
 enterRoom(gameObj.lobby);
+
+// instead of writing "door to the left" let the user pick a letter a) door to the left
+// implement the logic for the key from the elevator
+// add emojiis
