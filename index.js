@@ -54,7 +54,7 @@ const gameObj = {
   },
   secretRoom2: {
     promptText: "You are in the secret room 2. You see a big monster and an ax on the ground. Your options are:\n 1- Get the ax and fight or \n 2- Run away. \n What do you want to do?",
-    options: [{ optionID: "Get the ax and fight", target: "winroom" }, { optionID: "run away", target: "lobby" }]
+    options: [{ optionID: "1", target: "winroom" }, { optionID: "2", target: "lobby" }]
   },
   winroom: {
     gameText: "You won the game. You saved your loved one. You are happy.",
