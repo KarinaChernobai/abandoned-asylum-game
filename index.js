@@ -41,8 +41,8 @@ const gameObj = {
     ],
   },
   room3: {
-    promptText: "🛏️ You are in the patient's ward. Option:\n 1) 🔙 go back \n 2-to  the elevator.",
-    options: [{optionID: "1", target: "secondFloor"}, {optionID: "2", target: "elevator"}]
+    promptText: "🛏️ You are in the patient's ward. Option:\n 1) 🔙 go back \n 2-to  the elevator. \n 3) look under the beds 🛏️",
+    options: [{optionID: "1", target: "secondFloor"}, {optionID: "2", target: "elevator"}, {optionID: "3", target: "patientBeds"}]
   },
   room4: {
     promptText:
@@ -83,10 +83,19 @@ const gameObj = {
     ],
   },
 
+  patientBeds: {
+    promptText:
+      "Something is stirring under one of the beds... You approach the bed slowly... Before you can react a bloody and bandaged someting jumps out from under the bed. Is it a human? Do you \n 1) Run \n 2) Fight",
+      options: [
+        { optionID: "1", target: "combat" },
+        { optionID: "2", target: "lobby" },
+      ],
+  },
+
   combat: {
     isCustomRoom: true,
     enter: function () {
-      combat();
+      combat(110, 50);
       enterRoom(gameObj.lobby);
   }},
 
@@ -249,14 +258,13 @@ function enterRoom(room) {
 
 function combat (monsterHealth, monsterStrength) {
   alert("You chose to fight - very brave...");
-  let monster = new entity(monsterHealth);
+  let monster = new entity(monsterHealth, monsterStrength);
 
   let damage;
   let maxDamage;
   let playerTurn = true;
 
 while(monster.health > 0){
-
 if(playerTurn == true){
   let choice = prompt("Do you want to: \n(1)Strike max 5 Damage \n(2)Kick max 7 Damage \n(3)Stab max 15 Damage"); //plan to create cooldowns for items or one-use items
   switch (choice){
@@ -283,7 +291,7 @@ if(playerTurn == true){
 }
 
 else{
-  damage = Math.floor(Math.random() * (Math.floor(Math.random() * (monsterStrength)))); //
+  damage = Math.floor(Math.random() * (Math.floor(Math.random() * (monster.strength)))); //
   player.health = player.health - damage;
   if(player.health > 0){
   alert("The monster fought back and dealt " + damage + " points damage. You have " +player.health+ " health left");
