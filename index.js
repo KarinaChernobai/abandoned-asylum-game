@@ -85,10 +85,10 @@ const gameObj = {
 
   patientBeds: {
     promptText:
-      "Something is stirring under one of the beds... You approach the bed slowly... Before you can react a bloody and bandaged someting jumps out from under the bed. Is it a human? Do you \n 1) Run \n 2) Fight",
+      "Something stirs beneath the bed… You step closer, heart pounding. Suddenly, a blood-soaked, bandaged figure lunges out—its eyes hollow, its breath raspy. Is it even human? Do you \n 1) Fight \n 2) Run",
       options: [
         { optionID: "1", target: "patientFight" },
-        { optionID: "2", target: "lobby" },
+        { optionID: "2", target: "secondFloor" },
       ],
   },
 
@@ -103,7 +103,7 @@ const gameObj = {
   patientFight: {
     isCustomRoom: true,
     enter: function () {
-      combat(30, 20);
+      combat(30, 20, "secondFloor");
       enterRoom(gameObj.lobby);
   }},
 
@@ -264,7 +264,7 @@ function enterRoom(room) {
   return;
 }
 
-function combat (monsterHealth, monsterStrength) {
+function combat (monsterHealth, monsterStrength, targetRoom) {
   alert("You chose to fight - very brave...");
   let monster = new entity(monsterHealth, monsterStrength);
 
@@ -294,7 +294,7 @@ if(playerTurn == true){
 }
   else{
     alert("You have defeated the monster!")
-    enterRoom(gameObj.winroom);
+    enterRoom(gameObj[ targetRoom ]);
   }
 }
 
@@ -314,7 +314,7 @@ else{
 }
 
 
-alert(
+/*alert(
   "🎮 Your best friend has gone missing exploring an abandoned asylum. You came here to find them. And now... the game begins. 🕵️‍♂️"
 );
 alert ("You have heard that there are strange noises, screams and there might possibly be dangerous creatures in this building.");
@@ -324,7 +324,7 @@ alert ("Are you ready?");
 alert ("The game will start in '3'!\n (Are you sure you still want to go in?)")
 alert ("The game will start in '2'!\n (You can still go home!)")
 alert ("The game will start in '1'!\n (Don't forget that there will be no way back!)")
-alert ("Game starts! \n (Don't worry, we will always remember your courage!)")
+alert ("Game starts! \n (Don't worry, we will always remember your courage!)")*/
 
 enterRoom(gameObj.lobby);
 
