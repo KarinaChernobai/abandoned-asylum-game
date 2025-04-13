@@ -1,6 +1,7 @@
 class entity {
-  constructor(health){
-  this.health = health
+  constructor(health, strength){
+  this.health = health,
+  this.strength = strength
 }};
 player = new entity (100);
 // Game object with all rooms
