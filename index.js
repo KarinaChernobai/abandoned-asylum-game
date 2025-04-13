@@ -246,9 +246,9 @@ function enterRoom(room) {
   return;
 }
 
-function combat () {
+function combat (monsterHealth, monsterStrength) {
   alert("You chose to fight - very brave...");
-  let monster = new entity(50);
+  let monster = new entity(monsterHealth);
 
   let damage;
   let maxDamage;
@@ -282,7 +282,7 @@ if(playerTurn == true){
 }
 
 else{
-  damage = Math.floor(Math.random() * (25));//make relatve to monster stregth property
+  damage = Math.floor(Math.random() * (Math.floor(Math.random() * (monsterStrength)))); //
   player.health = player.health - damage;
   if(player.health > 0){
   alert("The monster fought back and dealt " + damage + " points damage. You have " +player.health+ " health left");
