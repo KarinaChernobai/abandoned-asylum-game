@@ -95,7 +95,7 @@ const gameObj = {
   finalBoss: {
     isCustomRoom: true,
     enter: function () {
-      combat(110, 50);
+      combat(110, 50, "winroom");
       enterRoom(gameObj.lobby);
   }},
 
@@ -289,7 +289,7 @@ if(playerTurn == true){
   damage = Math.floor(Math.random() * (maxDamage));
   monster.health = monster.health - damage;
   if(monster.health > 0){
-  alert("You dealt " + damage + " points damage. The monster has " + monster.health + "health left");
+  alert("You dealt " + damage + " points damage. The monster has " + monster.health + " health left");
   playerTurn = false;
 }
   else{
