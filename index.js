@@ -78,7 +78,7 @@ const gameObj = {
     promptText:
       "🚪 You are in secret room 2. A monster blocks the way 😈. An ax lies on the ground 🪓. Options:\n 1) Get the ax and fight or \n 2) 🏃 Run away.",
     options: [
-      { optionID: "1", target: "combat" },
+      { optionID: "1", target: "finalBoss" },
       { optionID: "2", target: "lobby" },
     ],
   },
@@ -87,15 +87,23 @@ const gameObj = {
     promptText:
       "Something is stirring under one of the beds... You approach the bed slowly... Before you can react a bloody and bandaged someting jumps out from under the bed. Is it a human? Do you \n 1) Run \n 2) Fight",
       options: [
-        { optionID: "1", target: "combat" },
+        { optionID: "1", target: "patientFight" },
         { optionID: "2", target: "lobby" },
       ],
   },
 
-  combat: {
+  finalBoss: {
     isCustomRoom: true,
     enter: function () {
       combat(110, 50);
+      enterRoom(gameObj.lobby);
+  }},
+
+  
+  patientFight: {
+    isCustomRoom: true,
+    enter: function () {
+      combat(30, 20);
       enterRoom(gameObj.lobby);
   }},
 
