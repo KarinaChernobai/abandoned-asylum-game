@@ -264,13 +264,18 @@ function enterRoom(room) {
   return;
 }
 
-function combat (monsterHealth, monsterStrength, targetRoom) {
-  alert("You chose to fight - very brave...");
+function combat (monsterHealth, monsterStrength, targetRoom, customMessage = "") {
   let monster = new entity(monsterHealth, monsterStrength);
-
   let damage;
   let maxDamage;
   let playerTurn = true;
+
+  if(customMessage != ""){
+    alert(customMessage);
+  }
+  else {
+  alert("You chose to fight - very brave...");
+}
 
 while(monster.health > 0){
 if(playerTurn == true){
